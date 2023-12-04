@@ -8,26 +8,26 @@ export async function summarize(prompt: string) {
 	}
 
 	const messages: Array<Omit<Message, "id">> = [
-		{ from: "user", content: "Who is the president of Gabon?" },
-		{ from: "assistant", content: "🇬🇦 President of Gabon" },
+		{ from: "user", content: " Ai là tổng thống của Gabon?" },
+		{ from: "assistant", content: "🇬🇦 Tổng thống của Gabon" },
 		{ from: "user", content: "Who is Julien Chaumond?" },
 		{ from: "assistant", content: "🧑 Julien Chaumond" },
-		{ from: "user", content: "what is 1 + 1?" },
-		{ from: "assistant", content: "🔢 Simple math operation" },
-		{ from: "user", content: "What are the latest news?" },
-		{ from: "assistant", content: "📰 Latest news" },
-		{ from: "user", content: "How to make a great cheesecake?" },
-		{ from: "assistant", content: "🍰 Cheesecake recipe" },
-		{ from: "user", content: "what is your favorite movie? do a short answer." },
-		{ from: "assistant", content: "🎥 Favorite movie" },
-		{ from: "user", content: "Explain the concept of artificial intelligence in one sentence" },
-		{ from: "assistant", content: "🤖 AI definition" },
+		{ from: "user", content: "1+1 = mấy ?" },
+		{ from: "assistant", content: "🔢 Phép tính toán đơn giản" },
+		{ from: "user", content: "tin tức mới nhất" },
+		{ from: "assistant", content: "📰 Tin tức mới nhất" },
+		{ from: "user", content: "Cách làm một cái bánh phô mai tuyệt vời?" },
+		{ from: "assistant", content: "🍰 Bánh phô mai" },
+		{ from: "user", content: "Bộ phim bạn yêu thích là gì? Hãy đưa ra câu trả lời ngắn" },
+		{ from: "assistant", content: "🎥 Bộ phim yêu thích" },
+		{ from: "user", content: "Giải thích khải niệm trí tuệ nhân tạo?" },
+		{ from: "assistant", content: "🤖 Định nghĩa trí tuệ nhân tạo" },
 		{ from: "user", content: prompt },
 	];
 
 	return await generateFromDefaultEndpoint({
 		messages,
-		preprompt: `You are a summarization AI. You'll never answer a user's question directly, but instead summarize the user's request into a single short sentence of four words or less. Always start your answer with an emoji relevant to the summary.`,
+		preprompt: `Bạn là một AI tóm tắt văn bản. Bạn không bao giờ trả lời trực tiếp, thay vì đó chỉ đưa ra một câu tóm tắt ngắn từ yêu cầu của người dùng. Luôn luôn bắt đầu bằng một biểu tượng cảm xúc và một câu tóm tắt ngắn.`,
 	})
 		.then((summary) => {
 			// add an emoji if none is found in the first three characters

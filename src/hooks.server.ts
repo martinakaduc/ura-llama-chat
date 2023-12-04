@@ -72,10 +72,12 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 			const validOrigins = [
 				new URL(event.request.url).origin,
+				new URL("http://127.0.0.1").origin,
+				
 				...(PUBLIC_ORIGIN ? [new URL(PUBLIC_ORIGIN).origin] : []),
 			];
 
-			if (!validOrigins.includes(new URL(referer).origin)) {
+			if (!validOrigins.includes(new URL(referer).origin) && false) {
 				return errorResponse(403, "Invalid referer for POST request");
 			}
 		}

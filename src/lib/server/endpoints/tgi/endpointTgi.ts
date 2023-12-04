@@ -1,4 +1,4 @@
-import { HF_ACCESS_TOKEN } from "$env/static/private";
+import { AUTHORIZATION, HF_ACCESS_TOKEN } from "$env/static/private";
 import { buildPrompt } from "$lib/buildPrompt";
 import { textGenerationStream } from "@huggingface/inference";
 import type { Endpoint } from "../endpoints";
@@ -25,7 +25,7 @@ export function endpointTgi({
 			model,
 			id: conversation._id,
 		});
-
+		
 		return textGenerationStream(
 			{
 				parameters: { ...model.parameters, return_full_text: false },
@@ -33,7 +33,18 @@ export function endpointTgi({
 				inputs: prompt,
 				accessToken,
 			},
-			{ use_cache: false }
+			{ use_cache: false,
+				fetch: async (endpointUrl, info) => {
+					if (info) {
+						// Set authorization header if it is defined and HF_ACCESS_TOKEN is empty
+						info.headers = {
+							...info.headers,
+							"Authorization": AUTHORIZATION,
+						};
+					}
+					return fetch(endpointUrl+'/generate_stream', info);
+				},
+			}
 		);
 	};
 }

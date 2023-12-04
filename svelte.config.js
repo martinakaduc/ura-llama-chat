@@ -6,7 +6,7 @@ dotenv.config({ path: "./.env.local" });
 dotenv.config({ path: "./.env" });
 
 process.env.PUBLIC_VERSION = process.env.npm_package_version;
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
